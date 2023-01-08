@@ -1,8 +1,10 @@
 <!doctype html>
 <html>
   <body>
-    <% @file_contents.each do |line| %>
-      <%= line %><br>
+    <% if @suffix == ".md" %>
+      <%= @markdown_tool.render(@file_content) %>
+    <% else %>
+      <%= @file_content%>
     <% end %>
   </body>
 </html>
