@@ -12,3 +12,7 @@
 </ul>
 
 <p><a href="/new">New Document</a></p>
+<p>Signed in as <%= session[:user] %>.</p>
+<form action="/signout">
+  <input type="submit" value="Sign Out">
+</form>

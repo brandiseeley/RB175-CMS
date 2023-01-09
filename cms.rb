@@ -32,11 +32,33 @@ def load_file_content(path)
 end
 
 get "/" do
-  pattern = File.join(data_path, "*")
-  @files = Dir.glob(pattern).map do |path|
-    File.basename(path)
+  if session[:user].nil?
+    erb(:signin)
+  else
+    pattern = File.join(data_path, "*")
+    @files = Dir.glob(pattern).map do |path|
+      File.basename(path)
+    end
+    erb :index
   end
-  erb :index
+end
+
+get "/signin" do
+  if params[:username] == "admin" && params[:password] == "secret"
+    session[:message] = "Welcome!"
+    session[:user] = params[:username]
+    redirect "/"
+  else
+    status 422
+    session[:message] = "Invalid credentials"
+    erb(:signin)
+  end
+end
+
+get "/signout" do
+  session[:user] = nil
+  session[:message] = "You have been signed out."
+  redirect "/"
 end
 
 get "/new" do
