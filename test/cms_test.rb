@@ -18,6 +18,7 @@ class CMSTest < Minitest::Test
 
   def setup
     FileUtils.mkdir_p(data_path)
+    
   end
   
   def teardown
